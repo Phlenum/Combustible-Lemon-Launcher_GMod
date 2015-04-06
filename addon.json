@@ -10,6 +10,7 @@
 		"*.smd",
 		"*.qc",
 		"*.qci",
-		"*.png"
+		"*.png",
+		".gitignore"
 	]
 }
