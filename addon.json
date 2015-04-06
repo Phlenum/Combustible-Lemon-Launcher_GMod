@@ -1,0 +1,15 @@
+{
+	"title": "Combustible Lemon Launcher",
+	"type": "weapon",
+	"tags": ["fun"],
+	"ignore":
+	[
+		"*.log",
+		"*.blend*",
+		"*.git*",
+		"*.smd",
+		"*.qc",
+		"*.qci",
+		"*.png"
+	]
+}

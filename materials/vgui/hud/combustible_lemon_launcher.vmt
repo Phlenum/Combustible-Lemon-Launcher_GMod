@@ -1,0 +1,13 @@
+//
+// Combustible Lemon Launcher (GMOD) by Phil Julian Meyer is licensed under a 
+// Creative Commons Attribution-ShareAlike 4.0 International License
+//
+
+"UnlitGeneric"
+{
+	$basetexture "vgui/hud/combustible_lemon_launcher"
+	$translucent 1
+	$alpha 1
+	$alphatest 1
+	$nolod 1
+}
