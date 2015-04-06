@@ -32,7 +32,7 @@ SWEP.HoldType = "crossbow"
 
 SWEP.Primary.Delay = 0.3
 SWEP.Primary.ClipSize = -1
-SWEP.Primary.DefaultClip = 20
+SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "RPG_Round" -- TO-THINK-ABOUT: combine ball as ammo?
 SWEP.Primary.Sound = Sound("")
@@ -45,4 +45,13 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.ViewModel = "models/phlenum/weapons/c_combustible_lemon_launcher.mdl"
 SWEP.WorldModel = "models/phlenum/weapons/w_combustible_lemon_launcher.mdl"
+
+if(CLIENT) then
+	SWEP.WepSelectIcon = surface.GetTextureID("vgui/hud/combustible_lemon_launcher")
+end
+
+list.Add("NPCUsableWeapons", {
+		class = "combustible_lemon_launcher",
+		title = SWEP.PrintName
+	})
 

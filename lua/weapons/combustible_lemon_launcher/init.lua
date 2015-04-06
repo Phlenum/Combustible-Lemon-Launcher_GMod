@@ -24,11 +24,15 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function SWEP:Initialize()
-	self.Weapon:SetHoldType(self.HoldType)
-	self.Weapon:SetDeploySpeed(0.3)
-	if CLIENT then
-		self.WepSelectIcon = surface.GetTextureID("vgui/hud/combustible_lemon_launcher")
-	end
+	self:SetHoldType(self.HoldType)
+	self:SetDeploySpeed(0.3)
+	self:SetNPCFireRate(3)
+	self:SetNPCMinBurst(0)
+	self:SetNPCMaxBurst(0)
+end
+
+function SWEP:GetCapabilities()
+	return bit.bor(CAP_WEAPON_RANGE_ATTACK1, CAP_INNATE_RANGE_ATTACK1)
 end
 
 function SWEP:PrimaryAttack()
