@@ -19,6 +19,8 @@
 	THE SOFTWARE.
 --]]
 
+AddCSLuaFile()
+
 SWEP.PrintName = "Combustible Lemon Launcher"
 SWEP.Author = "Phlenum"
 SWEP.Contact = "@Phlenum"
@@ -34,7 +36,7 @@ SWEP.Primary.Delay = 0.3
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = false
-SWEP.Primary.Ammo = "RPG_Round" -- TO-THINK-ABOUT: combine ball as ammo?
+SWEP.Primary.Ammo = "RPG_Round"
 SWEP.Primary.Sound = Sound("")
 
 -- for now don't include a secondary attack
@@ -54,4 +56,41 @@ list.Add("NPCUsableWeapons", {
 		class = "combustible_lemon_launcher",
 		title = SWEP.PrintName
 	})
+
+function SWEP:Initialize()
+	self:SetHoldType(self.HoldType)
+	self:SetDeploySpeed(0.3)
+	if(SERVER) then
+		self:SetNPCFireRate(3)
+		self:SetNPCMinBurst(0)
+		self:SetNPCMaxBurst(0)
+	end
+end
+
+function SWEP:PrimaryAttack()
+	-- since we don't have magazines here check for the whole ammo
+	if(self:GetOwner():IsPlayer() and self:Ammo1() <= 0) then
+		self:EmitSound("Weapon_Pistol.Empty")
+		return false
+	end
+	if(self:GetOwner():IsPlayer()) then
+		self:TakePrimaryAmmo(1)
+	end
+	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self:EmitSound(self.Primary.Sound)
+
+	if(SERVER) then
+		local lemon = ents.Create("combustible_lemon")
+		local aimvec = self:GetOwner():GetAimVector()
+		lemon:SetPos(self:GetAttachment(self.Weapon:LookupAttachment("muzzle")).Pos)
+		lemon:SetOwner(self:GetOwner())
+		lemon:SetInflictor(self)
+		lemon:SetDirection(aimvec)
+		lemon:SetAngles(aimvec:Angle())
+		lemon:Spawn()
+		lemon:Activate()
+	end
+	return true
+end
 

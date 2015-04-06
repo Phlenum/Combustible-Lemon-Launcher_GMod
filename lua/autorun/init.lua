@@ -19,5 +19,11 @@
 	THE SOFTWARE.
 --]]
 
-include("shared.lua")
+AddCSLuaFile()
+
+if(CLIENT) then
+
+	killicon.Add("combustible_lemon_launcher", "vgui/hud/combustible_lemon_launcher", Color(255, 255, 255, 255))
+
+end
 
