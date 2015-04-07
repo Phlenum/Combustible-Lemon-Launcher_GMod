@@ -19,41 +19,22 @@
 	THE SOFTWARE.
 --]]
 
-AddCSLuaFile()
+include("shared.lua")
 
-ENT.PrintName = "Combustible Lemon"
-ENT.Type = "anim"
-ENT.Base = "base_anim"
-ENT.Mass = 1
-ENT.Speed = 2000
 ENT.Blast = 150
 
-function ENT:SetupDataTables()
-	self:NetworkVar("Entity", 0, "Inflictor")
-	self:NetworkVar("Vector", 0, "Direction")
+function ENT:SetDirection(dir)
+	self.Direction = dir
 end
 
-function ENT:Initialize()
-	self:PhysicsInitSphere(SOLID_VPHYSICS, 3)
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	local vel = self:GetDirection() * self.Speed
-	local phys = self:GetPhysicsObject()
-	if(IsValid(phys)) then
-		phys:Wake()
-		phys:SetMass(self.Mass)
-		phys:SetVelocity(vel)
-	end
-	self:SetLocalVelocity(vel)
-	if(CLIENT) then
-		self:DrawShadow(false)
-	end
+function ENT:SetInflictor(ent)
+	self.Inflictor = ent
 end
 
 function ENT:PhysicsCollide(data, phys)
 	local effectdata = EffectData()
 	local position = self:GetPos()
-	local inflictor = self:GetInflictor()
+	local inflictor = self.Inflictor
 	local owner = self:GetOwner()
 	
 	--[[
@@ -72,16 +53,5 @@ function ENT:PhysicsCollide(data, phys)
 	util.BlastDamage(inflictor, owner, position, self.Blast, self.Blast)
 	util.Decal("Scorch", data.HitPos + data.HitNormal, data.HitPos - data.HitNormal)
 	SafeRemoveEntity(self)
-end
-
-if(CLIENT) then
-
-ENT.Mat = Material("phlenum/entities/combustible_lemon.vmt")
-
-function ENT:Draw()
-	render.SetMaterial(self.Mat)
-	render.DrawSprite(self:GetPos(), 16, 16, self:GetColor())
-end
-
 end
 
