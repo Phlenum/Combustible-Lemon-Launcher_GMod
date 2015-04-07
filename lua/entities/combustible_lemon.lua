@@ -34,8 +34,7 @@ function ENT:SetupDataTables()
 end
 
 function ENT:Initialize()
-	self:SetModel("models/phlenum/entities/combustible_lemon.mdl")
-	self:PhysicsInitSphere(5.5, "metal")
+	self:PhysicsInitSphere(SOLID_VPHYSICS, 3)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	local vel = self:GetDirection() * self.Speed
@@ -46,6 +45,9 @@ function ENT:Initialize()
 		phys:SetVelocity(vel)
 	end
 	self:SetLocalVelocity(vel)
+	if(CLIENT) then
+		self:DrawShadow(false)
+	end
 end
 
 function ENT:PhysicsCollide(data, phys)
@@ -57,5 +59,16 @@ function ENT:PhysicsCollide(data, phys)
 	util.Effect("Explosion", effectdata)
 	util.BlastDamage(inflictor, owner, position, self.Blast, self.Blast)
 	SafeRemoveEntity(self)
+end
+
+if(CLIENT) then
+
+ENT.Mat = Material("phlenum/entities/combustible_lemon.vmt")
+
+function ENT:Draw()
+	render.SetMaterial(self.Mat)
+	render.DrawSprite(self:GetPos(), 16, 16, self:GetColor())
+end
+
 end
 
