@@ -23,7 +23,9 @@ AddCSLuaFile()
 
 if(CLIENT) then
 
-	killicon.Add("combustible_lemon_launcher", "vgui/hud/combustible_lemon_launcher", Color(255, 255, 255, 255))
+	local iconcolor = Color(255, 255, 255, 255)
+	killicon.Add("combustible_lemon_launcher", "vgui/hud/combustible_lemon_launcher", iconcolor)
+	killicon.Add("combustible_lemon", "vgui/hud/combustible_lemon_launcher", iconcolor)
 
 end
 
