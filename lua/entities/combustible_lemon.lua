@@ -55,7 +55,7 @@ function ENT:PhysicsCollide(data, phys)
 	local position = self:GetPos()
 	local inflictor = self:GetInflictor()
 	local owner = self:GetOwner()
-
+	
 	--[[
 		In case these become invalid the entity is the attacker 
 		and/or the inflictor
@@ -70,6 +70,7 @@ function ENT:PhysicsCollide(data, phys)
 	effectdata:SetOrigin(position)
 	util.Effect("Explosion", effectdata)
 	util.BlastDamage(inflictor, owner, position, self.Blast, self.Blast)
+	util.Decal("Scorch", data.HitPos + data.HitNormal, data.HitPos - data.HitNormal)
 	SafeRemoveEntity(self)
 end
 
