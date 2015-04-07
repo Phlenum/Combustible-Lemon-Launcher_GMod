@@ -55,6 +55,18 @@ function ENT:PhysicsCollide(data, phys)
 	local position = self:GetPos()
 	local inflictor = self:GetInflictor()
 	local owner = self:GetOwner()
+
+	--[[
+		In case these become invalid the entity is the attacker 
+		and/or the inflictor
+		]]--
+	if(not IsValid(owner)) then
+		owner = self
+	end
+	if(not IsValid(inflictor)) then
+		inflictor = self
+	end
+
 	effectdata:SetOrigin(position)
 	util.Effect("Explosion", effectdata)
 	util.BlastDamage(inflictor, owner, position, self.Blast, self.Blast)
