@@ -25,8 +25,3 @@ include("shared.lua")
 ENT.PrintName = "Combustible Lemon"
 ENT.Mat = Material("phlenum/entities/combustible_lemon.vmt")
 
-function ENT:Draw()
-	render.SetMaterial(self.Mat)
-	render.DrawSprite(self:GetPos(), 16, 16, self:GetColor())
-end
-

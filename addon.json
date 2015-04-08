@@ -11,6 +11,7 @@
 		"*.qc",
 		"*.qci",
 		"*.png",
-		".gitignore"
+		".gitignore",
+		"*.md"
 	]
 }

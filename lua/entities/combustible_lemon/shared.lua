@@ -27,6 +27,7 @@ ENT.Mass = 1
 ENT.Speed = 2000
 
 function ENT:Initialize()
+	self:SetModel("models/phlenum/entities/combustible_lemon.mdl")
 	if(SERVER) then
 		-- server initialization
 		self:PhysicsInitSphere(SOLID_VPHYSICS, 3)
@@ -37,9 +38,9 @@ function ENT:Initialize()
 		if(IsValid(phys)) then
 			phys:Wake()
 			phys:SetMass(self.Mass)
-			phys:SetVelocity(vel)
+			local rand = math.random(0.1, 0.6)
+			phys:ApplyForceOffset(vel, Vector(rand, rand, rand))
 		end
-		self:SetLocalVelocity(vel)
 	else
 		-- client initialization
 		self:DrawShadow(false)

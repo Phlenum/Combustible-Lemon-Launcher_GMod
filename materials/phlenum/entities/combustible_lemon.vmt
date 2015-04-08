@@ -3,11 +3,10 @@
 // Creative Commons Attribution-ShareAlike 4.0 International License
 //
 
-"UnlitGeneric"
+"VertexLitGeneric"
 {
 	$basetexture "phlenum/entities/combustible_lemon"
+	$bumpmap "phlenum/entities/combustible_lemon_bump"
 	$surfaceprop "watermelon"
-	$alpha 1
-	$alphatest 1
 }
 
